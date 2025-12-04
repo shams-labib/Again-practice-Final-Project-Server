@@ -90,6 +90,14 @@ async function run() {
       res.send(result);
     });
 
+    // admin, users, rider role related api's
+    app.get("/users/:email/role", async (req, res) => {
+      const email = req.params.email;
+      const query = { email };
+      const user = await usersCollection.findOne(query);
+      res.send({ role: user?.role || "user" });
+    });
+
     // parcels collection
     app.post("/parcels", async (req, res) => {
       const parcels = req.body;
